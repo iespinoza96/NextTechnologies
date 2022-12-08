@@ -1,0 +1,94 @@
+﻿@model ML.Cargo
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="../../Scripts/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="../../Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+
+<div class="container">
+    <div class="row">
+        <h2>Cargo</h2>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Lista de cargos.</h5>
+            <hr />
+        </div>
+    </div>
+
+
+
+    <table class="table table-bordered table-responsive">
+        <thead>
+            <tr>
+                <td class="text-center" style=" font-weight:bold;">Editar</td>
+
+                <td class="text-center" style=" font-weight:bold;">id</td>
+                <td class="text-center" style=" font-weight:bold;">company_name</td>
+                <td class="text-center" style=" font-weight:bold;">company_id</td>
+                <td class="text-center" style=" font-weight:bold;">amount</td>
+                <td class="text-center" style=" font-weight:bold;">status</td>
+                <td class="text-center" style=" font-weight:bold;">created_at</td>
+                <td class="text-center" style=" font-weight:bold;">updated_at</td>
+
+
+                <td class="text-center" style=" font-weight:bold;">Eliminar</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (ML.Cargo cargo in Model.Cargos)
+            {
+                <tr>
+                    <td class="text-center"><a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("Form", "Empleado", new { Id = cargo.id })"></a></td>
+
+                    <td>@cargo.id</td>
+                    <td class="text-center">@cargo.company_name</td>
+                    <td>@cargo.company_id</td>
+                    <td class="text-center">@cargo.amount</td>
+                    <td class="text-center">@cargo.status</td>
+                    <td class="text-center">@cargo.created_at</td>
+                    <td class="text-center">@cargo.updated_at</td>
+
+                    <td class="text-center"><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Empleado", new { Id = cargo.id })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#ddlEmpresa").change(function () {
+
+            $("#ddlEmpresa").empty();
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetDepartamento")',
+                data: { IdArea: $("#ddlArea").val() },
+                success: function (departamentos) {
+
+
+                    $.each(departamentos, function (i, departamentos) {
+                        $("#ddlDepartamento").append('<option value="'
+                            + departamentos.IdDepartamento + '">'
+                            + departamentos.Nombre + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed. ' + ex);
+                }
+            });
+        });
+    })
+</script>

@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="NextTechnologiesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'NextTechnologies.dbo.Cargo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Cargo">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="company_id" />
+            <PropertyRef Name="amount" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="created_at" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="company_name" Type="varchar" MaxLength="130" />
+          <Property Name="company_id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="amount" Type="decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="created_at" Type="date" Nullable="false" />
+          <Property Name="updated_at" Type="date" />
+        </EntityType>
+        <Function Name="CargoAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="varchar" Mode="In" />
+          <Parameter Name="company_name" Type="varchar" Mode="In" />
+          <Parameter Name="company_id" Type="varchar" Mode="In" />
+          <Parameter Name="amount" Type="decimal" Mode="In" />
+          <Parameter Name="status" Type="varchar" Mode="In" />
+          <Parameter Name="created_at" Type="varchar" Mode="In" />
+          <Parameter Name="updated_at" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="CargoGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="NextTechnologiesModelStoreContainer">
+          <EntitySet Name="Cargo" EntityType="Self.Cargo" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Cargo].[id] AS [id], 
+    [Cargo].[company_name] AS [company_name], 
+    [Cargo].[company_id] AS [company_id], 
+    [Cargo].[amount] AS [amount], 
+    [Cargo].[status] AS [status], 
+    [Cargo].[created_at] AS [created_at], 
+    [Cargo].[updated_at] AS [updated_at]
+    FROM [dbo].[Cargo] AS [Cargo]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NextTechnologiesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cargo">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="company_id" />
+            <PropertyRef Name="amount" />
+            <PropertyRef Name="status" />
+            <PropertyRef Name="created_at" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="company_name" Type="String" MaxLength="130" FixedLength="false" Unicode="false" />
+          <Property Name="company_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="amount" Type="Decimal" Precision="16" Scale="2" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="updated_at" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityContainer Name="NextTechnologiesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cargoes" EntityType="Self.Cargo" />
+          <FunctionImport Name="CargoAdd">
+            <Parameter Name="id" Mode="In" Type="String" />
+            <Parameter Name="company_name" Mode="In" Type="String" />
+            <Parameter Name="company_id" Mode="In" Type="String" />
+            <Parameter Name="amount" Mode="In" Type="Decimal" />
+            <Parameter Name="status" Mode="In" Type="String" />
+            <Parameter Name="created_at" Mode="In" Type="String" />
+            <Parameter Name="updated_at" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="CargoGetAll" ReturnType="Collection(NextTechnologiesModel.CargoGetAll_Result)" />
+        </EntityContainer>
+        <ComplexType Name="CargoGetAll_Result">
+          <Property Type="String" Name="id" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="company_name" Nullable="true" MaxLength="130" />
+          <Property Type="String" Name="company_id" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="amount" Nullable="false" Precision="16" Scale="2" />
+          <Property Type="String" Name="status" Nullable="false" MaxLength="30" />
+          <Property Type="DateTime" Name="created_at" Nullable="false" />
+          <Property Type="DateTime" Name="updated_at" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NextTechnologiesModelStoreContainer" CdmEntityContainer="NextTechnologiesEntities">
+          <EntitySetMapping Name="Cargoes">
+            <EntityTypeMapping TypeName="NextTechnologiesModel.Cargo">
+              <MappingFragment StoreEntitySet="Cargo">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CargoAdd" FunctionName="NextTechnologiesModel.Store.CargoAdd" />
+          <FunctionImportMapping FunctionImportName="CargoGetAll" FunctionName="NextTechnologiesModel.Store.CargoGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="NextTechnologiesModel.CargoGetAll_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
