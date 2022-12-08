@@ -24,7 +24,7 @@ namespace BL
             {
                 using (DL.NextTechnologiesEntities context = new DL.NextTechnologiesEntities())
                 {
-                    var restulQuery = context.CargoAdd(cargo.id, cargo.name, cargo.company_id, cargo.amount, cargo.status, cargo.created_at, cargo.paid_at);
+                    var restulQuery = context.CargoAdd(cargo.id, cargo.name, cargo.company_id, decimal.Parse(cargo.amount), cargo.status, cargo.created_at, cargo.paid_at);
 
 
                     if (restulQuery >= 1)
@@ -70,7 +70,7 @@ namespace BL
                             cargo.id = obj.id;
                             cargo.name = obj.company_name;
                             cargo.company_id = obj.company_id;
-                            cargo.amount = obj.amount;
+                            cargo.amount = decimal.Parse(cargo.amount).ToString();
                             cargo.status = obj.status;
                             cargo.created_at = obj.created_at.ToString("dd/MM/yyyy");
                             cargo.paid_at = obj.updated_at.ToString("dd/MM/yyyy");
@@ -219,6 +219,7 @@ namespace BL
         public static ML.Result ReadPersons(string direccionExcel)
         {
             ML.Result result = new ML.Result();
+            result.Objects = new List<object>();
             var configuration = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HasHeaderRecord = false,
@@ -231,7 +232,7 @@ namespace BL
 
                 foreach (var item in records)
                 {
-
+                    result.Objects.Add(item);
 
                 }
             }

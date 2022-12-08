@@ -80,7 +80,7 @@ namespace PL.Controllers
                         cargo.id = row[0].ToString();
                         cargo.name = row[1].ToString();
                         cargo.company_id = row[2].ToString();
-                        cargo.amount = decimal.Parse(row[3].ToString());
+                        cargo.amount = decimal.Parse(row[3].ToString()).ToString();
                         cargo.status = row[4].ToString();
                         cargo.created_at = row[5].ToString();
                         cargo.paid_at = row[6].ToString();
